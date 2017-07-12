@@ -11,7 +11,7 @@ object processdata extends App {
   def indiceChange(sc: SparkContext, path_in: String, sep: String): RDD[String] = {
     """
     """.stripMargin
-    val data = sc.textFile(path_in)
+    val data = sc.textFile(path_in).cache()
     val train: RDD[String] = data.map {
       line =>
 
@@ -48,7 +48,7 @@ object processdata extends App {
 
     val train: RDD[String] = indiceChange(sc, path_in, sep)
     val util = new MyUtil
-    val data: RDD[LabeledPoint] = util.loadLibSVMFile(sc, train, numFeatures = -1, minPartitions = part).persist(StorageLevel.MEMORY_AND_DISK)
+    val data: RDD[LabeledPoint] = util.loadLibSVMFile(sc, train, numFeatures = -1, minPartitions = part).persist(StorageLevel.MEMORY_ONLY)
     if (ifSplit > 0 && ifSplit < 1) {
       val splitRdd: Array[RDD[LabeledPoint]] = data.randomSplit(Array(10 * ifSplit, 10 * (1 - ifSplit)), 2017)
       return splitRdd
