@@ -105,19 +105,6 @@ class MyUtil {
     }
   }
 
-  def evaluate(model:FMModel,data:RDD[LabeledPoint]): Double ={
-
-    // evaluate
-    val predictionAndLabels = data.map{ case LabeledPoint(label, features) =>
-      val prediction = model.predict(features)
-      (prediction, label)
-    }
-
-    // Instantiate metrics object
-    val metrics = new BinaryClassificationMetrics(predictionAndLabels)
-    val auROC = metrics.areaUnderROC
-    auROC
-  }
 
 
 }
