@@ -27,8 +27,8 @@ object processdata extends App {
           elem =>
             val index = elem.split(":")(0).toInt
             val value = elem.split(":")(1)
-            //val new_index = index + 1 //index should be begin 1
-            val new_index = index
+            val new_index = index + 1 //index should be begin 1
+            //val new_index = index
             new_index.toString + ":" + value
         }
         // sort index
