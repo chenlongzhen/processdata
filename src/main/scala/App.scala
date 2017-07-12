@@ -11,7 +11,7 @@ object processdata extends App {
   def indiceChange(sc: SparkContext, path_in: String, sep: String): RDD[String] = {
     """
     """.stripMargin
-    val data = sc.textFile(path_in )
+    val data = sc.textFile(path_in)
     val train: RDD[String] = data.map {
       line =>
 
@@ -64,7 +64,7 @@ object processdata extends App {
     args.foreach(elem => logger.info(elem))
     logger.info(s"===args===")
 
-    val train_path_in = "/team/ad_wajue/chenlongzhen/train_moba"
+    val train_path_in = "/team/ad_wajue/chenlongzhen/train_mobai"
 
     // print warn
     Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
