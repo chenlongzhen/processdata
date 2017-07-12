@@ -43,18 +43,13 @@ object processdata extends App {
     train
   }
 
-  def process_data(sc: SparkContext, path_in: String, ifSplit: Double, part: Int, sep: String): Array[RDD[LabeledPoint]] = {
+  def process_data(sc: SparkContext, path_in: String, ifSplit: Double, part: Int, sep: String): Array[RDD[String]] = {
 
 
     val train: RDD[String] = indiceChange(sc, path_in, sep)
     val util = new MyUtil
-    val data: RDD[LabeledPoint] = util.loadLibSVMFile(sc, train, numFeatures = -1, minPartitions = part).persist(StorageLevel.MEMORY_ONLY)
-    if (ifSplit > 0 && ifSplit < 1) {
-      val splitRdd: Array[RDD[LabeledPoint]] = data.randomSplit(Array(10 * ifSplit, 10 * (1 - ifSplit)), 2017)
-      return splitRdd
-    } else {
-      return Array(data)
-    }
+    val splitRdd: Array[RDD[String]] = train.randomSplit(Array(10 * ifSplit, 10 * (1 - ifSplit)), 2017)
+    return splitRdd
   }
 
   override def main(args: Array[String]): Unit = {
