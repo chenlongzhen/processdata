@@ -38,7 +38,7 @@ object processdata extends App {
         }
         val line_arr: Array[String] = label +: features_sort
         // string line
-        line_arr.mkString("\t")
+        line_arr.mkString(" ")
     }
     train
   }
@@ -81,7 +81,7 @@ object processdata extends App {
 
     val splitdata: Array[RDD[LabeledPoint]] = process_data(sc, train_path_in, 0.8, 500, "1")
 
-    val train = splitdata(0)
+    val train: RDD[LabeledPoint] = splitdata(0)
     val test = splitdata(1)
     train.saveAsTextFile("/team/ad_wajue/chenlongzhen/train_moba.train")
     test.saveAsTextFile("/team/ad_wajue/chenlongzhen/train_moba.test")
