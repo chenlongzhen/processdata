@@ -11,7 +11,7 @@ object processdata extends App {
   def indiceChange(sc: SparkContext, path_in: String, sep: String): RDD[String] = {
     """
     """.stripMargin
-    val data = sc.textFile(path_in).cache()
+    val data = sc.textFile(path_in,minPartitions = 500).cache()
     val train: RDD[String] = data.map {
       line =>
 
